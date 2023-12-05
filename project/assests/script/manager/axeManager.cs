@@ -22,7 +22,7 @@ public class axeManager : MonoBehaviour
 	{
         if (other.tag == "Monster")
         {
-            other.GetComponent<character>().onDamage(parentPrefab.Damage);
+            other.GetComponent<character>().onDamage(parentPrefab.Damage, false);
         }
 	}
 }

@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8452014909681936524
 Transform:
   m_ObjectHideFlags: 0
@@ -131,12 +131,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  damage: 0
-  rate: 0
+  damage: 1
+  rate: 1
   meleeArea: {fileID: 0}
   firePos: {fileID: 2521706867652408961}
   bullet: {fileID: 6564687263832343482}
   rotate: {fileID: 0}
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
+  last_atk: 0
 --- !u!1001 &692364097559986855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -221,15 +224,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8348391628310081033, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8348391628310081033, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8348391628310081033, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8348391628310081033, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_LocalPosition.x
@@ -273,7 +276,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8687621084049323187, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_Name
-      value: Missile
+      value: Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 8687621084049323187, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_IsActive
@@ -281,7 +284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8687621084049323187, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: bullet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -342,7 +345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 1
   Damage: 1
-  bulletSize: 1
+  bulletSize: 2
   playerBullet: 1
 --- !u!54 &4147408595270107764
 Rigidbody:

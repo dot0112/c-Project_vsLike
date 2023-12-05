@@ -14,7 +14,55 @@ public class Weapon : MonoBehaviour
     public Transform firePos;
     public GameObject bullet;
     public GameObject rotate;
+    
+    public GameObject rightHand;
+    public GameObject leftHand;
 
+    // 마지막 공격 시간 (단위:초)
+    public float last_atk = 0;
+
+    // {레벨 :{{데미지, 공격 주기, 총알 크기, 총알 속도},{무기 종류},{무기 종류}}}
+    // 총알 크기 * localScale 이기 때문에 변화가 있을때만 1 이상 그 외에는 1
+    public float[,,] level_stat ={
+        {{3,2,0,0 }, {1,1,1,1 }, {1,0.5f,1,1 }},
+        {{5,2,0,0 }, {2,1,1.2f,1 }, {1,0.4f,1,1.2f }},
+        {{7,2,0,0 }, {3,0.9f,1,1.1f }, {1,0.3f,1,1.2f }},
+        {{8,1.7f,0,0 }, {4,0.9f,1.2f,1 }, {2,0.3f,1,1 }},
+        {{13, 1.7f, 0, 0}, {4, 0.8f, 1.2f, 1.2f}, {3,0.3f,1,1 }},
+        {{13, 1.5f, 0, 0}, {4, 0.5f, 1, 1.2f}, {4, 0.3f, 1.2f, 1}},
+        {{15, 1.5f, 0, 0}, {7, 0.5f, 1, 1}, {4, 0.1f, 1, 2}},
+    };
+
+    // 1: 근접 해머 2: 권총 3: SMG
+    public void levelUp(int i)
+    {
+        int level = playerScript.lvl_weapon[i] - 1;
+        switch (i)
+        {
+            case 0: 
+                // 해머
+                break;
+			case 1:
+                // 권총
+                if (level == 0)
+                {
+                    rightHand.SetActive(false);
+                }
+                goto default;
+            case 2:
+				// SMG
+				if (level == 0)
+				{
+					leftHand.SetActive(false);
+				}
+                goto default;
+            default:
+                rate = level_stat[level, i, 1];
+                damage = (int)level_stat[level, i, 0];
+				bullet.GetComponent<bulletManager>().initBullet(damage, level_stat[level, i, 3], level_stat[level, i, 2], true);
+				break;
+        }
+    }
 
     public void Use()
     {

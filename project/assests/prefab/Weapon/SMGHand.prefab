@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5138057222690546400
 Transform:
   m_ObjectHideFlags: 0
@@ -101,11 +101,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   damage: 1
-  rate: 1
+  rate: 0.5
   meleeArea: {fileID: 0}
   firePos: {fileID: 344010514955220864}
   bullet: {fileID: 7806401942536159856}
   rotate: {fileID: 0}
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
+  last_atk: 0
 --- !u!1 &7762282022217531069
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8687621084049323187, guid: 45fafb1d61153494cb85310f993aa5ca, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: bullet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

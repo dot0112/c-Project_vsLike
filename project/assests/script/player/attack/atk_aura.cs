@@ -63,7 +63,7 @@ public class atk_aura : atk_base
 		if (other.gameObject.tag == "Monster")
 		{
 			Debug.Log("onTriggerEnter " + Time.time);
-			other.gameObject.GetComponent<character>().onDamage(Damage);
+			other.gameObject.GetComponent<character>().onDamage(Damage, false);
 		}
 	}
 }

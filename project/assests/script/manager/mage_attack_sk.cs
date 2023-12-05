@@ -23,7 +23,7 @@ public class mage_attack_sk : MonoBehaviour
 
 		int randomNumber = Random.Range(0, childPrefab.Length);
 
-		GameObject childInstance = Instantiate(childPrefab[randomNumber], parentPrefab.transform);
+		childPrefab[randomNumber].SetActive(true);
 
 		time = Time.time;
 		animator = GetComponent<Animator>();
@@ -34,7 +34,7 @@ public class mage_attack_sk : MonoBehaviour
     {
 		if (!attack && time + delayTime < Time.time)
 		{
-			animator.SetBool("attack", true);
+			animator.Play("attack");
 			attack = true;
 		}
 		if (time + delayTime + showTime < Time.time) Destroy(this.gameObject);

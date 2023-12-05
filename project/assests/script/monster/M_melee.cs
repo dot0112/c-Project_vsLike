@@ -16,12 +16,8 @@ public class M_melee : Monster
     {
         if (!isDie)
         {
-            if (follow) {
-                float dis = Vector3.Distance(player.transform.position, this.transform.position);
-                if (dis < 1.5f) anim.SetTrigger("attack");
-                else anim.SetTrigger("walk");
-                followTarget(); 
-            }
+            followTarget();
+
         } else
         {
             if (isDie_anim) die();

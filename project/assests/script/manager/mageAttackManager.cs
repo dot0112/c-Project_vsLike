@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class mageAttackManager : MonoBehaviour
+public class thornManager : MonoBehaviour
 {
 	private float time = 0;
 	private Animator animator;
@@ -45,10 +45,5 @@ public class mageAttackManager : MonoBehaviour
 	private void setAttack()
 	{
 		attack = true;
-	}
-
-	public void initMagic(float d)
-	{
-		Damage = d;
 	}
 }

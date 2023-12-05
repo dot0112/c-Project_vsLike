@@ -1,53 +1,121 @@
+
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class levelManager : MonoBehaviour
 {
-    static int level=0;
-    static List<GameObject> monsterList = new List<GameObject>();
-    public GameObject[] monsterPrefab;
+	static int level = 0;
+	static List<GameObject> monsterList = new List<GameObject>(), spawnList = new List<GameObject>();
+	public GameObject[] w1, w2, w3, w4, prefab;
+	public int gameMode = 0, world = 0;
+	float t_spawnEnd = 59;
 
-    public static Vector3 waitLoc = new Vector3(0, -10, 0);
-    public float delayBetweenSpawns = 0.5f;
 
-	/*
-     * {1,2} == monsterPrefab[0] 를 1개 소환, [1] 는 2개 소환
-     */
-	private int[,] level_summon =
-    {
-        {1,1,1,1,1,1 },
-        {2,2,2,2,2,2 },
-        {3,3,3,3,3,3 }
-    };
+	public static Vector3 waitLoc = new Vector3(0, -10, 0);
+	public float delayBetweenSpawns = 0.2f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private float t_roundStart = 0f;
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-	public void levelUp()
+	// Start is called before the first frame update
+	void Start()
 	{
-		level++;
+
+	}
+
+	// Update is called once per frame
+	void Update()
+	{
+
+	}
+
+	public void levelUp(int n)
+	{
+		level = n;
+		foreach (GameObject monster in monsterList)
+		{
+			Destroy(monster);
+		}
+		t_roundStart = Time.time;
+		setMonster();
 		StartCoroutine(SpawnMonsters());
+	}
+
+	public void setMonster()
+	{
+		spawnList.Clear();
+		world = UnityEngine.Random.Range(0, 4);
+		switch (world)
+		{
+			case 0:
+				prefab = w1;
+				break;
+			case 1:
+				prefab = w2;
+				break;
+			case 2:
+				prefab = w3;
+				break;
+			case 3:
+				prefab = w4;
+				break;
+		}
+		switch (UnityEngine.Random.Range(0, 10))
+		{
+			case 9:
+				gameMode = 3;   // 메이지
+				break;
+			case 8:
+				gameMode = 2;   // 원거리
+				break;
+			case 7:
+				gameMode = 1;   // 근거리
+				break;
+			default:
+				gameMode = 0;   // 일반
+				break;
+		}
+		// 5 라운드 전 : 20 초 소환 | 10 라운드 전 : 40 초 소환
+		if (level < 6) t_spawnEnd = 20; else if (level < 11) t_spawnEnd = 40; else t_spawnEnd = 59;
+
+		for (int i = 0; i < prefab.Length; i++)
+		{
+			switch (gameMode)
+			{
+				case 3:
+					if (prefab[i].GetComponent<M_mage>() != null)
+						spawnList.Add(prefab[i]);
+					break;
+				case 2:
+					if (prefab[i].GetComponent<M_Range>() != null)
+						spawnList.Add(prefab[i]);
+					break;
+				case 1:
+					if (prefab[i].GetComponent<M_melee>() != null)
+						spawnList.Add(prefab[i]);
+					break;
+				case 0:
+					spawnList.Add(prefab[i]);
+					break;
+			}
+		}
 	}
 
 	IEnumerator SpawnMonsters()
 	{
-		for (int i = 0; i < monsterPrefab.Length; i++)
+		while (true)
 		{
-			for (int j = 0; j < level_summon[level, i]; j++)
-			{
-				monsterList.Add(Instantiate(monsterPrefab[j], waitLoc, Quaternion.identity));
-				yield return new WaitForSeconds(delayBetweenSpawns);
-			}
+			if (t_roundStart + t_spawnEnd < Time.time) break;
+
+			int randNum = UnityEngine.Random.Range(0, spawnList.Count);
+
+			monsterList.Add(Instantiate(spawnList[randNum], waitLoc, Quaternion.identity));
+			monsterList[monsterList.Count - 1].SetActive(true);
+			monsterList[monsterList.Count - 1].GetComponent<Monster>().Relocation();
+
+			yield return new WaitForSeconds(delayBetweenSpawns);
 		}
 	}
 }

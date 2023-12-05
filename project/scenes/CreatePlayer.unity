@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -67,9 +67,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -135,7 +132,7 @@ GameObject:
   - component: {fileID: 5531633}
   - component: {fileID: 5531634}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatText_HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -10}
+  m_AnchoredPosition: {x: 210, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5531633
@@ -707,7 +704,7 @@ GameObject:
   - component: {fileID: 224076579}
   - component: {fileID: 224076578}
   m_Layer: 5
-  m_Name: DEXText
+  m_Name: DEFText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -730,7 +727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: 26}
+  m_AnchoredPosition: {x: -149, y: 25}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &224076578
@@ -753,9 +750,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'DEX
-
-'
+  m_text: Defence
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b284e1ab7e3466a4f95aa5638958cd01, type: 2}
   m_sharedMaterial: {fileID: 4129950369914153439, guid: b284e1ab7e3466a4f95aa5638958cd01, type: 2}
@@ -782,8 +777,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 37
+  m_fontSizeBase: 37
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -818,7 +813,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -28.475586}
+  m_margin: {x: 0, y: 0, z: -0.65686035, w: -1.3614502}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1116,7 +1111,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &435991869
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1130,6 +1125,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -1147,7 +1143,7 @@ GameObject:
   - component: {fileID: 465194574}
   - component: {fileID: 465194573}
   m_Layer: 5
-  m_Name: StetTiltle
+  m_Name: StatTiltle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1304,7 +1300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: 146}
+  m_AnchoredPosition: {x: -149, y: 145}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515219019
@@ -1390,7 +1386,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -28.475586}
+  m_margin: {x: 0, y: 0, z: 0, w: -0.31854248}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1416,7 +1412,7 @@ GameObject:
   - component: {fileID: 696605204}
   - component: {fileID: 696605203}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatText_LUK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1438,7 +1434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -10}
+  m_AnchoredPosition: {x: 210, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &696605203
@@ -1684,7 +1680,7 @@ GameObject:
   - component: {fileID: 796896620}
   - component: {fileID: 796896619}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatText_SPD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1803,7 +1799,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -10}
+  m_AnchoredPosition: {x: 210, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &799570167 stripped
@@ -2001,7 +1997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: -46}
+  m_AnchoredPosition: {x: -149, y: -45}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &872821135
@@ -2089,7 +2085,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -28.475586}
+  m_margin: {x: 0, y: 0, z: 0, w: -1.3614502}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2271,7 +2267,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: 86}
+  m_AnchoredPosition: {x: -149, y: 85}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1039401174
@@ -2357,7 +2353,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -28.475586}
+  m_margin: {x: 0, y: 0, z: 0, w: -2.4042969}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2592,7 +2588,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -149, y: -106}
+  m_AnchoredPosition: {x: -149, y: -105}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1119632346
@@ -2615,7 +2611,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LUK
+  m_text: 'LUK
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b284e1ab7e3466a4f95aa5638958cd01, type: 2}
   m_sharedMaterial: {fileID: 4129950369914153439, guid: b284e1ab7e3466a4f95aa5638958cd01, type: 2}
@@ -2678,7 +2676,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: -28.475586}
+  m_margin: {x: 0, y: 0, z: 0, w: -0.318573}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2704,7 +2702,7 @@ GameObject:
   - component: {fileID: 1328299074}
   - component: {fileID: 1328299073}
   m_Layer: 5
-  m_Name: StetBackground
+  m_Name: StatBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2785,7 +2783,7 @@ GameObject:
   - component: {fileID: 1432278672}
   - component: {fileID: 1432278671}
   m_Layer: 5
-  m_Name: RerolrBackground
+  m_Name: RerollBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3062,7 +3060,7 @@ GameObject:
   - component: {fileID: 1713445301}
   - component: {fileID: 1713445302}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatText_DMG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3084,7 +3082,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -10}
+  m_AnchoredPosition: {x: 210, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1713445301
@@ -3454,6 +3452,7 @@ MonoBehaviour:
   Damage_text: {fileID: 1713445302}
   defense_text: {fileID: 2068035257}
   speed_text: {fileID: 796896619}
+  LUK_text: {fileID: 696605203}
   count_text: {fileID: 193126308}
 --- !u!1 &1919790345
 GameObject:
@@ -3734,7 +3733,7 @@ GameObject:
   - component: {fileID: 2068035256}
   - component: {fileID: 2068035257}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: StatText_DEF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3756,7 +3755,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210, y: -10}
+  m_AnchoredPosition: {x: 213, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2068035256

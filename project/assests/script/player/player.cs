@@ -8,20 +8,37 @@ using TMPro;
 public class playerScript : character
 {
 
+	new public static float HP;
+	new	public static float Damage;
+	new public static float defense;
+	new public static float speed;
+	public static int LUK;
+
 	public float invincibleTime;
 
+	public static int[] lvl_weapon = new int[3]; // 1. 근접 망치 2. 권총 3. 기관총
+	public static int maxlvl = 7;
 
     float T_invincibleTime;
 	float hAxis;
 	float vAxis;
-	float fireDelay;
-	bool isFireReady;
 	Vector3 moveVec;
-	public Weapon equipWeapon;
-	float autoAttackTimer = 0f;
+	public List<GameObject> equipWeapon;
+	public static GameObject player;
 
 
 	Animator anim;
+
+
+	public void levelUp_weapon(int n)
+	{
+		if (lvl_weapon[n] == 0)
+		{
+			equipWeapon[n].SetActive(true);
+		}
+		lvl_weapon[n]++;
+		equipWeapon[n].GetComponent<Weapon>().levelUp(n);
+	}
 
 
 	void GetInput()
@@ -41,51 +58,47 @@ public class playerScript : character
 		
 	}
 
+
 	void Turn()
 	{
 		transform.LookAt(transform.position + moveVec);
 	}
-	void AutoAttackTimer()
-	{
 
-		// 공격 간격을 설정 (예: 1초마다 공격)
-		float attackInterval = 1.0f;
 
-		// 타이머를 업데이트
-		autoAttackTimer += Time.deltaTime;
-
-		// 일정 간격마다 Attack 메서드 호출
-		if (autoAttackTimer >= attackInterval)
-		{
-			Attack();
-			autoAttackTimer = 0f; // 타이머 초기화
-		}
-	}
 	void Attack()
 	{
 		if (equipWeapon == null)
 			return;
 
-		fireDelay += Time.deltaTime;
-		isFireReady = equipWeapon.rate / 1000.0f < fireDelay;
-		Debug.Log(equipWeapon.rate + " " + fireDelay);
-
-		if (isFireReady)
+		for(int i=0;i<equipWeapon.Count; i++)
 		{
-			equipWeapon.Use();
-			anim.SetTrigger("doSwing");
-			fireDelay = 0;
+			if (equipWeapon[i].active == true)
+			{
+				Weapon weapon = equipWeapon[i].GetComponent<Weapon>();
+				bool isFireReady = weapon.last_atk + weapon.rate < Time.time;
+				if (isFireReady)
+				{
+					weapon.Use();
+					weapon.last_atk = Time.time;
+				}
+			}
 		}
 	}
+
+
     private void Awake()
 	{
 		gameObject.tag = "Player";
+		player = this.gameObject;
         anim = GetComponentInChildren<Animator>();
     }
 
+
 	private void Start()
 	{
-
+		gameObject.tag = "Player";
+		player = this.gameObject;
+		anim = GetComponentInChildren<Animator>();
 	}
 	
 
@@ -100,26 +113,25 @@ public class playerScript : character
 		GetInput();
 		Move();
 		Turn();
-		AutoAttackTimer();
+		Attack();
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
 		if (HP <= 0) // 플레이어 사망
 		{
 			playerDie();
 		}
-
-	
-
-		
-
-
     }
 
-	public new void onDamage(float damage)
+	public void onDamage(float damage)
 	{
 		if (T_invincibleTime + invincibleTime < Time.time)
 		{
 			Debug.Log("player ondamage");
-			HP -= damage;
-            T_invincibleTime = Time.time;
+			// damage -= defense;
+			if (damage > 0)
+			{
+				HP -= damage;
+				T_invincibleTime = Time.time;
+			}
 		}
 		if (HP <= 0) die();
 	}

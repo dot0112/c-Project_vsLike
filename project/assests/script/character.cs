@@ -9,9 +9,18 @@ public abstract class character : MonoBehaviour
     public float defense;
     public float speed;
 
-    public void onDamage(float damage)
+    public void onDamage(float damage, bool isPlayer)
     {
-        HP -= damage;
+        if(!isPlayer)
+        {
+            int randNUM = UnityEngine.Random.Range(0, 100) + 1;
+            if (randNUM <= playerScript.LUK) damage *= 2;
+        }
+        damage -= defense;
+        if (damage > 0)
+        {
+            HP -= damage;
+        }
         if (HP <= 0) die();
     }
 

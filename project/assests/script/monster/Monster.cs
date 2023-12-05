@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class Monster : character
 {
-    protected GameObject player;
+	protected GameObject player= playerScript.player;
 	protected Animator anim;
 	protected Rigidbody rb;
 
@@ -23,32 +23,36 @@ public class Monster : character
 
 	public void Awake()
 	{
+		gameObject.tag = "Monster";
+		anim = GetComponent<Animator>();
+		rb = GetComponent<Rigidbody>();
 	}
 
 	// Start is called before the first frame update
 	protected void Start()
-    {
-		setTarget();
+	{
 		gameObject.tag = "Monster";
 		anim = GetComponent<Animator>();
-		anim.SetBool("player_alive", true);	// player 객체에 확인 메소드 필요
+		rb=GetComponent<Rigidbody>();
 	}
 
-    protected void setTarget()
-    {
-		player = GameObject.FindWithTag("Player");
 
-	}
-
-    protected void followTarget()
-    {
+	protected void followTarget()
+	{
 		if (follow)
 		{
-			var targetPos = player.transform.position;
-			targetPos.y=this.transform.position.y;
-			var heading = targetPos - this.transform.position;
-			this.transform.position = Vector3.Lerp(this.transform.position, targetPos, Time.deltaTime * speed);
-			lookToPlayer();
+			if (this.transform.position.y < -5)
+			{
+				Relocation();
+			}
+			else
+			{
+				Vector3 temp = player.transform.position - transform.position;
+				temp = temp.normalized;
+				temp.y = 0;
+				transform.position += temp * speed * Time.deltaTime;
+				lookToPlayer();
+			}
 		}
 	}
 
@@ -69,12 +73,14 @@ public class Monster : character
 		}
 	}
 
-	protected void Relocation()
+	public void Relocation()
 	{
 		// 죽었던 몬스터를 재배치 하기위한 함수
 
 		if (canResTime < Time.time)
 		{
+
+			tag = "Monster";
 
 			// 애니메이터 재설정
 			anim.SetTrigger("walk");
@@ -87,27 +93,30 @@ public class Monster : character
 
 			// 부활 위치 설정
 			// 일단 좌, 우, 하, 상 만 설정
-			Vector3[] loc = { new Vector3(-30, 0, 0), new Vector3(30, 0, 0), new Vector3(0, 0, -30), new Vector3(0, 0, 90) };
-			int locIdx=UnityEngine.Random.Range(0, loc.Length);
-			var targetPos=player.transform.position;
+			Vector3[] loc = { new Vector3(((int) UnityEngine.Random.Range(-40,40)), 0, 90), new Vector3(((int)UnityEngine.Random.Range(-40, 40)), 0, -30), new Vector3(60, 0, ((int)UnityEngine.Random.Range(0, 50))), new Vector3(-60, 0, ((int)UnityEngine.Random.Range(0, 50))) };
+			int locIdx = UnityEngine.Random.Range(0, loc.Length);
+			var targetPos = player.transform.position;
 			targetPos.y = 0;
 			this.transform.position = targetPos + loc[locIdx];
+			this.GetComponent<Rigidbody>().velocity = Vector3.zero;
 		}
 	}
 
-	
+
 	protected override void die()
-	{	
+	{
 		isDie = true;
 		follow = false;
-		canResTime = Time.time+resTime;
+		canResTime = Time.time + resTime;
 		AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 		if (!stateInfo.IsName("die"))
 		{
-			Debug.Log(Time.time+" monsterDie");
+			Debug.Log(Time.time + " monsterDie | anim status " + stateInfo.IsName("die"));
+			tag = "Untagged";
 			isDie_anim = true;
-			anim.SetTrigger("die");
-		} else
+			anim.Play("die");
+		}
+		else
 		{
 			if (stateInfo.normalizedTime >= 1.0f)
 			{
@@ -122,15 +131,11 @@ public class Monster : character
 
 	// Update is called once per frame
 	private void Update()
-    {
-		
+	{
+
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		if (collision.collider.tag == "underGround")
-		{
-			Relocation();
-		}
 	}
 }

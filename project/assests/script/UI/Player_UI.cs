@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEditor;
+using UnityEditor.Build;
 
 public class Player_UI : MonoBehaviour
 {
@@ -11,9 +13,7 @@ public class Player_UI : MonoBehaviour
     public GameObject roundMenu;
     public GameObject Player;
     public GameObject GameOver;
-
-    public playerScript playerScript;
-    public M_melee meleeScript;
+    public GameObject levelManager;
 
     public TMP_Text Player_Hp;
     public TMP_Text timeText;
@@ -26,25 +26,33 @@ public class Player_UI : MonoBehaviour
 
     float Max_HP;
 
-    int round = 1;
-    float second = 60;
+    int round = 0;
+	public float stageTime = 10;
+    float second;
     protected bool stop = false;
 
 
     void Start()
     {
-        Max_HP = CreatePlayer.HP;
+
+	    Max_HP = CreatePlayer.HP;
 
         playerScript.HP = CreatePlayer.HP;
         playerScript.Damage = CreatePlayer.Damage;
         playerScript.defense = CreatePlayer.defense;
         playerScript.speed = CreatePlayer.speed;
+        playerScript.LUK = CreatePlayer.LUK;
+        roundUp();
 
         Time.timeScale = 1;
-    }
+        second = stageTime;
+	}
 
+	private void Awake()
+	{
+	}
 
-    public void GameStart() 
+	public void GameStart() 
     {
         GameMenu.SetActive(true);
         roundMenu.SetActive(false);
@@ -66,30 +74,32 @@ public class Player_UI : MonoBehaviour
         {
             if (string.Format("{0:000}", second) == "000")
             {
-                round++;
-                GameMenu.SetActive(false);
-                roundMenu.SetActive(true);
-                Player.SetActive(false);
+				roundUp();
+				GameMenu.SetActive(false);
+                roundMenuActive();
+
+				Player.SetActive(false);
 
                 Time.timeScale = 0;
                 Player.GetComponent<playerScript>().enabled = false;
 
-                second = 120;
+                second = stageTime * 2;
             }
         }
         else 
         {
             if (string.Format("{0:000}", second) == "000")
             {
-                round++;
-                GameMenu.SetActive(false);
-                roundMenu.SetActive(true);
-                Player.SetActive(false);
+				roundUp();
+				GameMenu.SetActive(false);
+                roundMenuActive();
+
+				Player.SetActive(false);
 
                 Time.timeScale = 0;
                 Player.GetComponent<playerScript>().enabled = false;
 
-                second = 60;
+                second = stageTime;
             }
         }
 
@@ -98,6 +108,18 @@ public class Player_UI : MonoBehaviour
             Time.timeScale = 0;
             Player.GetComponent<playerScript>().enabled = false;
         }
+    }
+
+    void roundUp()
+    {
+        round++;
+        levelManager.GetComponent<levelManager>().levelUp(round);
+    }
+
+    void roundMenuActive()
+    {
+        roundMenu.SetActive(true);
+        roundMenu.GetComponent<stage_end>().setWeapon();
     }
 
 

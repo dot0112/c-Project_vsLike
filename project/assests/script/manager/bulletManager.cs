@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class bulletManager : MonoBehaviour
 {
-    public float Speed;
+    public float Speed=1;
     public float Damage;
     public float bulletSize;
 
@@ -15,10 +15,12 @@ public class bulletManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.GetComponent<Rigidbody>().velocity = transform.right * 10 * Speed;
-        // 탄환 방향값 * 초기값 10 * speed 변수 = 탄환 속도
-        // 탄환 프리팹이 돌아간 채로 생성되어있음 -> transform.right 로 해결
-    }
+        float speed = 10 * Speed;
+        if (playerBullet) this.GetComponent<Rigidbody>().velocity = transform.right * speed;
+        else this.GetComponent<Rigidbody>().velocity = transform.forward * speed;
+		// 탄환 방향값 * 초기값 10 * speed 변수 = 탄환 속도
+		// 탄환 프리팹이 돌아간 채로 생성되어있음 -> transform.right 로 해결
+	}
 
     // Update is called once per frame
     void Update()
@@ -33,8 +35,7 @@ public class bulletManager : MonoBehaviour
         {
             if (other.gameObject.tag == "Player")
             {
-                //other.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                other.gameObject.GetComponent<character>().onDamage(Damage);
+                other.gameObject.GetComponent<character>().onDamage(Damage, true);
                 Debug.Log(Time.time + " Player Hit");
                 Destroy(this.gameObject);
             }
@@ -43,7 +44,7 @@ public class bulletManager : MonoBehaviour
         {
             if(other.gameObject.tag == "Monster")
             {
-				other.gameObject.GetComponent<character>().onDamage(Damage);
+				other.gameObject.GetComponent<character>().onDamage(Damage,false);
 				Debug.Log(Time.time + " Monster Hit");
 				Destroy(this.gameObject);
 			}
@@ -62,7 +63,7 @@ public class bulletManager : MonoBehaviour
 	public void initBullet(float d,float s, float bs, bool ws)
     {
         Damage = d;
-        Speed = s;
+        Speed *= s;
         this.transform.localScale = this.transform.localScale * bs;
         playerBullet = ws;
     }
