@@ -30,13 +30,11 @@ public class bulletManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-		Debug.Log(Time.time + " triggerEnter");
 		if (!playerBullet)
         {
             if (other.gameObject.tag == "Player")
             {
                 other.gameObject.GetComponent<character>().onDamage(Damage, true);
-                Debug.Log(Time.time + " Player Hit");
                 Destroy(this.gameObject);
             }
         }
@@ -44,8 +42,12 @@ public class bulletManager : MonoBehaviour
         {
             if(other.gameObject.tag == "Monster")
             {
-				other.gameObject.GetComponent<character>().onDamage(Damage,false);
-				Debug.Log(Time.time + " Monster Hit");
+                float damage = Damage;
+                if(Random.Range(0, 100) < playerScript.LUK)
+                {
+                    damage *= 1.5f;
+                }
+				other.gameObject.GetComponent<character>().onDamage(damage,false);
 				Destroy(this.gameObject);
 			}
         }
@@ -55,7 +57,6 @@ public class bulletManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Map")
         {
-			Debug.Log(Time.time + " Map Hit");
 			Destroy (this.gameObject);
         }
     }

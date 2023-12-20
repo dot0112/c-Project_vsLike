@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class stage_end : MonoBehaviour
 {
     public weapon_button[] btn;
-    public int weapon_count = 3;
+    public int weapon_count = 4;
 
     public void setWeapon()
     {

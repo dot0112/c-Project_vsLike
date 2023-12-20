@@ -11,9 +11,17 @@ public class M_melee : Monster
 		base.Start();
 	}
 
-    // Update is called once per frame
-    void Update()
+	new public void Awake()
+	{
+		base.Awake();
+	}
+
+	void Update()
     {
+        if(player == null)
+        {
+			player = GameObject.FindWithTag("Player");
+		}
         if (!isDie)
         {
             followTarget();
@@ -33,7 +41,6 @@ public class M_melee : Monster
             if (collision.gameObject.tag == "Player")
             {
                 collision.gameObject.GetComponent<playerScript>().onDamage(Damage);
-                Debug.Log("attack melee");
             }
         }
 	}

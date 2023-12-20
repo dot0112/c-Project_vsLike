@@ -45,7 +45,6 @@ public class atk_axe : atk_base
 
 	protected override void attack()
 	{
-		Debug.Log(Time.time);
 		M_axe.attack();
 	}
 

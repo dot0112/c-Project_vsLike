@@ -75,7 +75,20 @@ public class M_mage : M_Range
 			}
 		else
 		{
-			Relocation();
+			if (isDie_anim) die();
+			else
+				Relocation();
+		}
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if (!isDie)
+		{
+			if (collision.gameObject.tag == "Player")
+			{
+				collision.gameObject.GetComponent<playerScript>().onDamage(Damage_col);
+			}
 		}
 	}
 }

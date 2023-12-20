@@ -16,7 +16,7 @@ public class playerScript : character
 
 	public float invincibleTime;
 
-	public static int[] lvl_weapon = new int[3]; // 1. ±ÙÁ¢ ¸ÁÄ¡ 2. ±ÇÃÑ 3. ±â°üÃÑ
+	public static int[] lvl_weapon = new int[4]; // 1. ±ÙÁ¢ ¸ÁÄ¡ 2. ±ÇÃÑ 3. ±â°üÃÑ 4. ¼¦°Ç
 	public static int maxlvl = 7;
 
     float T_invincibleTime;
@@ -51,7 +51,7 @@ public class playerScript : character
 	{
 		moveVec = new Vector3(hAxis, 0, vAxis).normalized;
 
-		transform.position += moveVec * speed * Time.deltaTime;
+		this.transform.position += moveVec * speed * Time.deltaTime;
 
 		anim.SetBool("isRun", moveVec != Vector3.zero);
 
@@ -114,7 +114,7 @@ public class playerScript : character
 		Move();
 		Turn();
 		Attack();
-		GetComponent<Rigidbody>().velocity = Vector3.zero;
+		//GetComponent<Rigidbody>().velocity = Vector3.zero;
 		if (HP <= 0) // ÇÃ·¹ÀÌ¾î »ç¸Á
 		{
 			playerDie();

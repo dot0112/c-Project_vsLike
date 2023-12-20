@@ -28,7 +28,6 @@ public class atk_aura : atk_base
     {
 		if (t_attack + atkCycle * t_atkCycle < Time.time)
 		{
-			Debug.Log(t_attack);
 			t_attack = Time.time;
 			attack();
 		}
@@ -62,7 +61,6 @@ public class atk_aura : atk_base
 	{
 		if (other.gameObject.tag == "Monster")
 		{
-			Debug.Log("onTriggerEnter " + Time.time);
 			other.gameObject.GetComponent<character>().onDamage(Damage, false);
 		}
 	}

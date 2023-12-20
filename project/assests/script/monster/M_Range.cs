@@ -14,6 +14,8 @@ public class M_Range : Monster
 
 	public bool animSet = false;
 
+	public int Damage_col = 1;
+
 	// Start is called before the first frame update
 	new void Start()
 	{
@@ -24,7 +26,7 @@ public class M_Range : Monster
 	{
 		Quaternion q = Quaternion.LookRotation(player.transform.position - transform.position);
 		GameObject newBullet = Instantiate(bullet, firePos.position, q);
-		newBullet.SetActive(true);	
+		newBullet.SetActive(true);
 		canAttack = false;
 		t_Attack = Time.time;
 	}
@@ -74,8 +76,21 @@ public class M_Range : Monster
 		}
 		else
 		{
-			Relocation();
+			if (isDie_anim) die();
+			else
+				Relocation();
 		}
 
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		if (!isDie)
+		{
+			if (collision.gameObject.tag == "Player")
+			{
+				collision.gameObject.GetComponent<playerScript>().onDamage(Damage_col);
+			}
+		}
 	}
 }

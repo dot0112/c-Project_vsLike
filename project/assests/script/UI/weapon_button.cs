@@ -16,16 +16,21 @@ public class weapon_button : MonoBehaviour
 
 	public void setup()
     {
-        icon.sprite = icon_list[weapon_num];
+		transform.Find("level").gameObject.SetActive(true);
+		icon.sprite = icon_list[weapon_num];
         before.text= playerScript.lvl_weapon[weapon_num].ToString();
         after.text = (playerScript.lvl_weapon[weapon_num] + 1).ToString();
-        if (playerScript.lvl_weapon[weapon_num] == playerScript.maxlvl) btn.enabled = false;
+        btn.enabled = true;
+        if (playerScript.lvl_weapon[weapon_num] == playerScript.maxlvl) { 
+            btn.enabled = false;
+            transform.Find("level").gameObject.SetActive(false);
+            transform.Find("max").gameObject.SetActive(true);
+        }
 	}
 
     public void OnClick()
     {
 		playerScript.player.GetComponent<playerScript>().levelUp_weapon(weapon_num);
 		player_UI.GameStart();
-	
 	}
 }

@@ -14,7 +14,7 @@ public class Monster : character
 	protected Rigidbody rb;
 
 	protected bool follow = true;
-	protected float canResTime = 0;
+	float canResTime = 0;
 
 	public bool isDie = false;
 	public bool isDie_anim = false;
@@ -26,6 +26,7 @@ public class Monster : character
 		gameObject.tag = "Monster";
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
+		player=playerScript.player;
 	}
 
 	// Start is called before the first frame update
@@ -34,6 +35,7 @@ public class Monster : character
 		gameObject.tag = "Monster";
 		anim = GetComponent<Animator>();
 		rb=GetComponent<Rigidbody>();
+		player = playerScript.player;
 	}
 
 
@@ -83,7 +85,7 @@ public class Monster : character
 			tag = "Monster";
 
 			// 애니메이터 재설정
-			anim.SetTrigger("walk");
+			anim.Play("walk");
 
 			follow = true;
 			isDie = false;
@@ -111,7 +113,6 @@ public class Monster : character
 		AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
 		if (!stateInfo.IsName("die"))
 		{
-			Debug.Log(Time.time + " monsterDie | anim status " + stateInfo.IsName("die"));
 			tag = "Untagged";
 			isDie_anim = true;
 			anim.Play("die");

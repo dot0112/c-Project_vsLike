@@ -12,9 +12,9 @@ public class CreatePlayer : MonoBehaviour
     public static float defense ;
     public static float speed ;
     public static int LUK;
+    public static int totalStat;
 
     int count_reroll = 5;
-    int count_statChange = 5;
 
 
     public TMP_Text HP_text;
@@ -23,6 +23,7 @@ public class CreatePlayer : MonoBehaviour
     public TMP_Text speed_text;
     public TMP_Text LUK_text;
     public TMP_Text count_text;
+    public TMP_Text total_stat_text;
 
 
 	void Start()
@@ -32,8 +33,15 @@ public class CreatePlayer : MonoBehaviour
         defense = 1;
         speed = 10;
         LUK = 0;
+        totalStat = PlayerPrefs.GetInt("totalStat");
+        if(totalStat == 0)
+        {
+            PlayerPrefs.SetInt("totalStat", 5);
+            totalStat = 5;
+        }
 
-        for (int i = 0; i < count_statChange; i++)
+
+        for (int i = 0; i < totalStat; i++)
         {
             int a = UnityEngine.Random.Range(0,5);
             switch (a)
@@ -65,7 +73,7 @@ public class CreatePlayer : MonoBehaviour
         defense_text.text = string.Format("{0}", defense);
         speed_text.text = string.Format("{0}", speed);
         LUK_text.text=string.Format("{0}", LUK);
-
+        total_stat_text.text=string.Format("{0}", totalStat);
 
     }
 
@@ -88,7 +96,7 @@ public class CreatePlayer : MonoBehaviour
             speed = 10;
             LUK=0;
 
-            for (int i = 0; i < count_statChange; i++)
+            for (int i = 0; i < totalStat; i++)
             {
 				int a = UnityEngine.Random.Range(0, 5);
 				switch (a)
